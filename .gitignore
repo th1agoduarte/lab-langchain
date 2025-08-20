@@ -77,4 +77,4 @@ instance/
 
 # Local configs
 *.env
-.env.*
+.env
