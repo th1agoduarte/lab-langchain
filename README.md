@@ -9,7 +9,7 @@ Este projeto utiliza **LangChain** integrado com **Google Generative AI** e **Op
 - 🐍 Python **3.10+**
 - 📌 `pip` atualizado  
 - 🔑 Conta no **Google AI Studio** (para API GenAI)  
-- 🔑 Conta na **OpenAI** (para GPT-4/GPT-4o/embeddings)  
+- 🔑 Conta na **OpenAI** (Para API GPT)  
 
 ---
 
