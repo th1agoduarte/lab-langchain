@@ -49,7 +49,7 @@ parts = splitter.create_documents([long_text])
 
 llm = ChatOpenAI(model="gpt-5-nano", temperature=0)
 
-chain_sumarize = load_summarize_chain(llm, chain_type="map_reduce", verbose=False)
+chain_sumarize = load_summarize_chain(llm, chain_type="map_reduce", verbose=True)
 
 result = chain_sumarize.invoke({"input_documents": parts})
 print(result["output_text"])
