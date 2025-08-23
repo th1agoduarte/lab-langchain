@@ -1,101 +1,102 @@
-# 🤖 Projeto LangChain - Python
+# 🤖 Projeto de Estudos com LangChain
 
-Este projeto utiliza **LangChain** integrado com **Google Generative AI** e **OpenAI** para construção de aplicações de IA.  
+Este repositório contém uma coleção de exemplos e estudos práticos sobre o uso do **LangChain** com Python, integrado com as APIs da **OpenAI** e **Google Generative AI** para construir aplicações de IA.
+
+---
+
+## 📚 Estrutura do Projeto e Conteúdo
+
+O projeto está organizado em diretórios que representam diferentes estágios de aprendizado com LangChain:
+
+-   **`1-fundamentos/`**: Conceitos básicos, como inicializar modelos de linguagem (LLMs), criar e usar `PromptTemplates` e `ChatPromptTemplates`.
+-   **`2-chains-e-processamento/`**: Foco na construção de pipelines (chains) usando a LangChain Expression Language (LCEL), `Runnables`, e estratégias de processamento de texto, como sumarização com `MapReduce`.
+-   **`3-agentes-e-tools/`**: Implementação de agentes autônomos que utilizam ferramentas (`Tools`) para executar tarefas complexas, explorando o padrão ReAct.
+-   **`4-gerenciamento-de-memoria/`**: Técnicas para adicionar memória a chatbots, permitindo que eles se lembrem de interações passadas, como `InMemoryChatMessageHistory` e `Sliding Window`.
 
 ---
 
 ## 📦 Pré-requisitos
 
-- 🐍 Python **3.10+**
-- 📌 `pip` atualizado  
-- 🔑 Conta no **Google AI Studio** (para API GenAI)  
-- 🔑 Conta na **OpenAI** (Para API GPT)  
+-   🐍 Python **3.10+**
+-   📌 `pip` atualizado
+-   🔑 Conta no **Google AI Studio** (para API GenAI)
+-   🔑 Conta na **OpenAI** (Para API GPT)
 
 ---
 
 ## ⚙️ Instalação
 
-Clone o repositório e instale as dependências:
+1.  Clone o repositório e navegue até o diretório:
+    ```bash
+    git clone https://github.com/th1agoduarte/lab-langchain
+    cd lab-langchain
+    ```
 
-```bash
-git clone https://github.com/th1agoduarte/lab-langchain
-cd langchain-projeto
-pip install -r requirements.txt
-```
+2.  Crie um ambiente virtual e instale as dependências:
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    ```
 
 ---
 
 ## 📚 Requirements
 
-No arquivo `requirements.txt` devem estar, no mínimo:
+O arquivo `requirements.txt` deve conter, no mínimo:
 
 ```txt
+# filepath: requirements.txt
 langchain
+langchain-core
 langchain-community
 langchain-openai
 langchain-google-genai
 python-dotenv
 ```
 
-> 💡 Opcional: `jupyter`, `notebook` caso queira rodar experimentos interativos.
+> 💡 **Opcional**: Adicione `jupyter` e `notebook` caso queira rodar experimentos interativos.
 
 ---
 
 ## 🔑 Configuração das API Keys
 
-### 🟦 OpenAI
-1. Crie uma conta (ou acesse) em [OpenAI](https://platform.openai.com).  
-2. Vá até **View API Keys** em [API Keys](https://platform.openai.com/account/api-keys).  
-3. Copie a chave e adicione no arquivo `.env`:
+1.  Crie um arquivo chamado `.env` na raiz do projeto.
+2.  Adicione suas chaves de API, como no exemplo abaixo:
 
-```env
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxx
-```
+    ```env
+    # filepath: .env
+    OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxx"
+    GOOGLE_API_KEY="AIzaSyAxxxxxxxxxxxx"
+    ```
 
----
-
-### 🟨 Google Generative AI (Gemini)
-1. Acesse [Google AI Studio](https://aistudio.google.com/).  
-2. Clique em **Get API Key**.  
-3. Copie a chave e adicione no arquivo `.env`:
-
-```env
-GOOGLE_API_KEY=AIzaSyAxxxxxxxxxxxx
-```
+O código nos exemplos já está configurado para carregar essas variáveis de ambiente automaticamente.
 
 ---
+## 🔧 Como Usar
 
-## 🔧 Como usar
+Cada diretório contém scripts Python numerados que podem ser executados individualmente. Comece pelos exemplos em `1-fundamentos/` e avance conforme sua necessidade.
 
-Carregue as chaves no Python usando `dotenv`:
+Exemplo básico de inicialização:
 
 ```python
 from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-openai_key = os.getenv("OPENAI_API_KEY")
-google_key = os.getenv("GOOGLE_API_KEY")
-```
-
-Exemplo de inicialização com LangChain:
-
-```python
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-# OpenAI
-llm_openai = ChatOpenAI(model="gpt-4o-mini", api_key=openai_key)
+# Carrega as variáveis de ambiente do arquivo .env
+load_dotenv()
 
-# Google Generative AI
-llm_google = ChatGoogleGenerativeAI(model="gemini-pro", api_key=google_key)
+# Inicializa os modelos
+llm_openai = ChatOpenAI(model="gpt-4o-mini")
+llm_google = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
-response = llm_openai.invoke("Hello, world with OpenAI!")
-print("🔵 OpenAI:", response)
+# Envia um prompt para cada modelo
+response_openai = llm_openai.invoke("Qual a capital do Brasil?")
+print("🔵 OpenAI:", response_openai.content)
 
-response = llm_google.invoke("Hello, world with Google GenAI!")
-print("🟡 Google GenAI:", response)
+response_google = llm_google.invoke("Qual a capital do Brasil?")
+print("🟡 Google GenAI:", response_google.content)
 ```
 
 ---
@@ -104,5 +105,3 @@ print("🟡 Google GenAI:", response)
 - 📓 Criar exemplos práticos em `notebooks/`  
 - 🔗 Integrar ferramentas externas no LangChain (retrievers, bancos de dados, APIs)  
 - 🤖 Montar pipelines de agentes  
-
----
